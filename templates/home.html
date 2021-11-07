@@ -1,0 +1,33 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>recipies.ai</title>
+</head>
+<body>
+    <header id="model">
+        recipies.ai
+    </header>
+
+    <main>
+        <div class="got">
+            <p id="got">Whatcha' Got?</p>
+            <p>(For now, please upload image to <a id="imgur" href="https://www.imgur.com">imgur</a> and copy the url to the text box)</p>
+            <p>If you already have a link, feel free to use it.</p> 
+        </div>
+        <div class="wrapper">
+            <form method="POST">
+                <input name="variable" id="url_input">
+                <input type="submit">
+            </form>
+        </div>
+    </main>
+</body>
+</html>
+{% endblock content %}

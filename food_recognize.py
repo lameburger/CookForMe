@@ -1,12 +1,9 @@
 from google.cloud import vision
 import os
-from google.cloud.vision_v1 import types
-from google.cloud.vision_v1.services.image_annotator import client
 import requests
 import urllib
-import pandas as pd
-from requests_html import HTML
 from requests_html import HTMLSession
+from flask import Flask, flash, request, redirect, url_for, render_template
 
 # API key for Google Vision API
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'white-cedar-331312-e9f42f725c6d.json'
@@ -47,8 +44,8 @@ def text_detection(uri, realIngredient):
         if d not in realIngredient:
             if d in ingredients:
                 realIngredient.append(d)
-    
     print(realIngredient)
+    return(realIngredient)
 
 # Source finder for google search
 def get_source(url):
@@ -62,6 +59,7 @@ def get_source(url):
    
 # Scrapes google search for links     
 def scrape_google(query):
+    global links
     
     query = urllib.parse.quote_plus(query)
     response = get_source("https://www.google.co.uk/search?q=" + query)
@@ -82,12 +80,93 @@ def scrape_google(query):
     print(links)
     return links
 
-# Calls the scrape function
-scrape_google("recipies for" + )
+def scrape_google_vegan(query):
+    global links_vegan
+    
+    query = urllib.parse.quote_plus(query)
+    response = get_source("https://www.google.co.uk/search?q=" + query)
+
+    links_vegan = list(response.html.absolute_links)
+    google_domains = ('https://www.google.', 
+                      'https://google.', 
+                      'https://webcache.googleusercontent.', 
+                      'http://webcache.googleusercontent.', 
+                      'https://policies.google.',
+                      'https://support.google.',
+                      'https://maps.google.')
+
+    for url in links_vegan[:]:
+        if url.startswith(google_domains):
+            links_vegan.remove(url)
+    print("-------------------")
+    print(links_vegan)
+    return links_vegan
+
+def scrape_google_vegetarian(query):
+    global links_vegetarian 
+    
+    query = urllib.parse.quote_plus(query)
+    response = get_source("https://www.google.co.uk/search?q=" + query)
+
+    links_vegetarian = list(response.html.absolute_links)
+    google_domains = ('https://www.google.', 
+                      'https://google.', 
+                      'https://webcache.googleusercontent.', 
+                      'http://webcache.googleusercontent.', 
+                      'https://policies.google.',
+                      'https://support.google.',
+                      'https://maps.google.')
+
+    for url in links_vegetarian [:]:
+        if url.startswith(google_domains):
+            links_vegetarian .remove(url)
+    print("-------------------")
+    print(links_vegetarian )
+    return links_vegetarian 
     
 # Main function
-def main():
-    uri_image = 'https://previews.123rf.com/images/lenm/lenm1206/lenm120600121/14039151-text-illustration-featuring-the-word-apple.jpg'        
+def main(inputUri):
+    
+    global listToStr
+    
+    uri_image = inputUri
     detect_labels_uri(uri_image)
+    
+    listToStr = ' '.join([str(elem) for elem in realIngredient])
+    print(listToStr)
+    scrape_google("recipies for {}".format(listToStr))
+    scrape_google_vegan("recipies for {} vegan".format(listToStr))
+    scrape_google_vegetarian("recipies for {} vegetarian".format(listToStr))
+    return(listToStr, links[:7], links_vegetarian[:7], links_vegan[:7])
 
-main()
+UPLOAD_FOLDER = 'static/uploads/'
+
+app = Flask(__name__)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
+SECRET_KEY = os.urandom(32)
+app.config['SECRET_KEY'] = SECRET_KEY
+
+@app.route("/")
+@app.route("/home")
+def home():
+   return render_template('home.html')
+
+x = "N/A"
+
+@app.route('/')
+def my_form():
+    return render_template('home.html')
+
+@app.route('/', methods=['POST'])
+def my_form_post():
+    variable = request.form['variable']
+    
+    main('{}'.format(variable))
+    
+    return render_template('model.html', variable=variable, links=links, links_vegan=links_vegan, links_vegetarian=links_vegetarian)
+
+if __name__ == "__main__":
+    app.run()

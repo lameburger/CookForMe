@@ -1,0 +1,71 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>recipies.ai</title>
+</head>
+<body>
+    <header>
+        recipe.ai
+        <hr>
+    </header>
+    <main>
+        <table>
+            <caption id="caption">Choose<i> Your </i>Meal.</caption>
+            <tr>
+                <th>Regular Diet</th>
+                <th>Vegan Diet</th>
+                <th>Vegetarian Diet</th>
+            </tr>
+            <tr>
+                <td><a href="{{ links[1] }}">Regular Recipe 1</a></td>
+                <td><a href="{{ links_vegetarian[1] }}">Vegan Recipe 1</td>
+                <td><a href="{{ links_vegan[1] }}">Vegeterian Recipe 1</td>
+            </tr>
+            <tr>
+                <td><a href="{{ links[2] }}">Regular Recipe 2</a></td>
+                <td><a href="{{ links_vegetarian[2] }}">Vegan Recipe 2</a></td>
+                <td><a href="{{ links_vegan[2] }}">Vegeterian Recipe 2</a></td>
+            </tr>
+            <tr>
+                <td><a href="{{ links[3] }}">Regular Recipe 3</a></td>
+                <td><a href="{{ links_vegetarian[3] }}">Vegan Recipe 3</a></td>
+                <td><a href="{{ links_vegan[3] }}">Vegeterian Recipe 3</a></td>
+            </tr>
+            <tr>
+                <td><a href="{{ links[:4] }}">Regular Recipe 4</a></td>
+                <td><a href="{{ links_vegetarian[4] }}">Vegan Recipe 4</a></td>
+                <td><a href="{{ links_vegan[4] }}">Vegeterian Recipe 4</a></td>
+            </tr>
+            <tr>
+                <td><a href="{{ links[5] }}">Regular Recipe 5</a></td>
+                <td><a href="{{ links_vegetarian[5] }}">Vegan Recipe 5</a></td>
+                <td><a href="{{ links_vegan[5] }}">Vegeterian Recipe 5 </a></td>
+            </tr>
+            <tr>
+                <td><a href="{{ links[6] }}">Regular Recipe 6</a></td>
+                <td><a href="{{ links_vegetarian[6] }}">Vegan Recipe 6</a></td>
+                <td><a href="{{ links_vegan[6] }}">Vegeterian Recipe 6</a></td>
+            </tr>
+            <tr>
+                <td><a href="{{ links[:7] }}">Regular Recipe 7</a></td>
+                <td><a href="{{ links_vegetarian[7] }}">Vegan Recipe 7</a></td>
+                <td><a href="{{ links_vegan[7] }}">Vegeterian Recipe 7</a></td>
+            </tr>
+        </table>
+    <br>
+    <br>
+    </main>
+
+    <footer>
+        <p>Lane Burgett & Matt Kelly - Hack K-State 2021</p>
+    </footer>
+</body>
+</html>
+{% endblock content %}
