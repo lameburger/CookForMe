@@ -3,10 +3,16 @@ body {
     font-family: 'Noto Sans Mono', monospace;
 }
 
-header {
+header h1 {
     text-align: center;
-    font-size: 40px;
+    font-size: 33px;
     color: rgb(189, 129, 56);
+}
+
+#name {
+    color: rgb(189, 129, 56);
+    text-align: center;
+    font-size: 36px;
 }
 
 header hr {
@@ -19,9 +25,19 @@ footer {
     padding-left: 15px;
 }
 
+button {
+    color: rgb(189, 129, 56);
+    text-align: right;
+}
+
+.button {
+    padding-top: 10px;
+}
+
 .got {
     text-align: center;
-    padding-top: 150px;
+    padding-top: 100px;
+    color: black;
 }
 .wrapper hr {
     height: 3px;
@@ -30,6 +46,7 @@ footer {
 }
 
 .submit {
+    padding-top: 20px;
     text-align: center;
     height: 10%;
 }
@@ -37,9 +54,13 @@ footer {
 .wrapper {
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 40%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+  }
+
+  #converter {
+      color: rgb(189, 129, 56);
   }
 
 /* .add {
