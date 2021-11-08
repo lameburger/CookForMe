@@ -166,7 +166,7 @@ def my_form_post():
     
     main('{}'.format(variable))
     
-    return render_template('model.html', variable=variable, links=links, links_vegan=links_vegan, links_vegetarian=links_vegetarian)
+    return render_template('model.html', variable=variable, listToStr=listToStr, links=links, links_vegan=links_vegan, links_vegetarian=links_vegetarian)
 
 if __name__ == "__main__":
     app.run(debug=False,host='0.0.0.0')
